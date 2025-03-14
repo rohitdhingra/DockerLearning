@@ -6,6 +6,7 @@ services:
       discovery.type: single-node
       node.name: opensearch
       OPENSEARCH_JAVA_OPTS: "-Xms512m -Xmx512m"
+      path.repo: /usr/share/opensearch/backup
     volumes:
       - opensearch-data:/usr/share/opensearch/data
     ports:
