@@ -32,6 +32,7 @@ services:
       - elasticsearch
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - ./input-data:/usr/share/logstash/input-data
     ports:
       - "5044:5044"  # for beats
       - "9600:9600"  # monitoring
