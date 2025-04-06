@@ -8,6 +8,9 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=false  # disable security for dev
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - path.repo=/usr/share/elasticsearch/snapshots
+    volumes:
+      - ./es-snapshots:/usr/share/elasticsearch/snapshots
     ports:
       - "9200:9200"
     networks:
