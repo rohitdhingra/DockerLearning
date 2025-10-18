@@ -41,7 +41,28 @@ services:
       - "9600:9600"  # monitoring
     networks:
       - elk
-
+  apm-server:
+    image: elastic/apm-server:7.10.2
+    container_name: apm-server
+    ports:
+      - "8200:8200"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - KIBANA_HOST=http://kibana:5601
+      - apm-server.host=0.0.0.0:8200
+      - apm-server.shutdown_timeout=5s
+      - xpack.security.enabled=false
+    command: >
+      apm-server -e
+        -E apm-server.rum.enabled=true
+        -E setup.kibana.host=kibana:5601
+        -E setup.template.enabled=true
+        -E output.elasticsearch.hosts=["elasticsearch:9200"]
+    depends_on:
+      - elasticsearch
+      - kibana
+    networks:
+      - elk
 networks:
   elk:
     driver: bridge
