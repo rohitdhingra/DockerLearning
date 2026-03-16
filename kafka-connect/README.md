@@ -55,12 +55,34 @@ cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
 ./kafka-topics.sh --create --topic topic1 --partitions 3 --replication-factor 3 --bootstrap-server localhost:9092 
 ```
 
-## 2.2. Describe topic in the Kafka Cluster
+## 2.3. Describe topic in the Kafka Cluster
 ```
+cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
 ./kafka-topics.sh --describe --topic topic1 --bootstrap-server localhost:9094
 ```
 
+# 3. Setting up Kafka Connect
+## 3.1. Update plugins path in the connect-standalone.properties(/Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config/connect-standalone.properties) file
+```
+plugin.path=/Users/rohitdhingra/Downloads/DevelopmentWS/DockerLearning/kafka-connect/plugins
+```
 
-## 3.1. Download Connectors from the confluent hub
-https://www.confluent.io/hub/
+## 3.2. Copy the connector properties to the config folder of local kafka installation
+```
+cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config
+cp /Users/rohitdhingra/Downloads/DevelopmentWS/DockerLearning/kafka-connect/mysql-jdbc-connector.properties /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config/
+```
+
+## 3.3. Start the Kafka Connect Standalone Worker
+```
+cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
+./connect-standalone.sh ../config/connect-standalone.properties ../config/mysql-jdbc-connector.properties
+```
+
+## 3.4. Listing Down the topics in the Kafka Cluster
+``` 
+cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
+./kafka-topics.sh --list  --bootstrap-server localhost:9092
+
+```
 
