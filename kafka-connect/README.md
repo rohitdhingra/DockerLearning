@@ -42,7 +42,7 @@ quit
 ```
 docker rm -f postgres-kafka
 ```
-
+# 2. Setting up Kafka Cluster
 ## 2.1. Running Kafka Cluster using docker compose
 ```
 cd /Users/rohitdhingra/Downloads/DevelopmentWS/DockerLearning/kafka-connect/kafka-cluster-confluent
@@ -61,28 +61,51 @@ cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
 ./kafka-topics.sh --describe --topic topic1 --bootstrap-server localhost:9094
 ```
 
-# 3. Setting up Kafka Connect
-## 3.1. Update plugins path in the connect-standalone.properties(/Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config/connect-standalone.properties) file
+# 3. Setting up Kafka Connect for Source and Sink Connectors
+
+## 3.1 Download the JDBC Connector for MySQL and Postgres to below location
+```
+/Users/rohitdhingra/Downloads/DevelopmentWS/DockerLearning/kafka-connect/plugins
+```
+## 3.2. Update plugins path in the connect-standalone.properties(/Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config/connect-standalone.properties) file
 ```
 plugin.path=/Users/rohitdhingra/Downloads/DevelopmentWS/DockerLearning/kafka-connect/plugins
 ```
 
-## 3.2. Copy the connector properties to the config folder of local kafka installation
+## 3.3. Copy the connector properties to the config folder of local kafka installation
 ```
 cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config
 cp /Users/rohitdhingra/Downloads/DevelopmentWS/DockerLearning/kafka-connect/mysql-jdbc-connector.properties /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config/
 ```
 
-## 3.3. Start the Kafka Connect Standalone Worker
+## 3.4. Start the Kafka Connect Standalone Worker
 ```
 cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
 ./connect-standalone.sh ../config/connect-standalone.properties ../config/mysql-jdbc-connector.properties
 ```
 
-## 3.4. Listing Down the topics in the Kafka Cluster
+## 3.5. Listing Down the topics in the Kafka Cluster
 ``` 
 cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
 ./kafka-topics.sh --list  --bootstrap-server localhost:9092
 
 ```
 
+## 3.5. Listing Events in the user_profiles topic in the Kafka Cluster
+``` 
+cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic user_profiles --from-beginning
+
+```
+
+## 3.6. Copy the postgres connector properties to the config folder of local kafka installation
+```
+cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config
+cp /Users/rohitdhingra/Downloads/DevelopmentWS/DockerLearning/kafka-connect/postgresql-jdbc-sink-connector.properties /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/config/
+```
+
+## 3.7. Start the Kafka Connect Standalone Worker for both Sink Connector
+```
+cd /Users/rohitdhingra/Downloads/Softwares/kafka_2.13-4.2.0/bin
+./connect-standalone.sh ../config/connect-standalone.properties ../config/mysql-jdbc-connector.properties ../config/postgresql-jdbc-sink-connector.properties
+```
