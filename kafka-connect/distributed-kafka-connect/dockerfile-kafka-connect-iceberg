@@ -1,0 +1,16 @@
+FROM confluentinc/cp-kafka-connect:7.6.0
+
+# 1. Install base connector
+RUN confluent-hub install --no-prompt iceberg/iceberg-kafka-connect:1.9.2
+
+# 2. Add Nessie dependencies
+# Nessie Bridge
+ADD --chmod=644 https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-nessie/1.5.0/iceberg-nessie-1.5.0.jar /usr/share/confluent-hub-components/iceberg-iceberg-kafka-connect/lib/
+# Nessie Client
+ADD --chmod=644 https://repo1.maven.org/maven2/org/projectnessie/nessie/nessie-client/0.82.0/nessie-client-0.82.0.jar /usr/share/confluent-hub-components/iceberg-iceberg-kafka-connect/lib/
+# Nessie Model (THIS FIXES THE CURRENT ERROR)
+ADD --chmod=644 https://repo1.maven.org/maven2/org/projectnessie/nessie/nessie-model/0.82.0/nessie-model-0.82.0.jar /usr/share/confluent-hub-components/iceberg-iceberg-kafka-connect/lib/
+# AWS Bundle for S3/MinIO
+ADD --chmod=644 https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/1.5.0/iceberg-aws-bundle-1.5.0.jar /usr/share/confluent-hub-components/iceberg-iceberg-kafka-connect/lib/
+
+ENV CONNECT_PLUGIN_PATH=/usr/share/confluent-hub-components
