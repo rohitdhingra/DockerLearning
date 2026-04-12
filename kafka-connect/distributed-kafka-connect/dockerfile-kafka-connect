@@ -1,0 +1,9 @@
+FROM confluentinc/cp-kafka-connect:latest
+
+RUN confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:latest
+
+
+COPY ./plugins/confluentinc-kafka-connect-jdbc-10.9.2/lib/mysql-connector-j-9.6.0.jar /usr/share/confluent-hub-components
+COPY ./plugins/confluentinc-kafka-connect-jdbc-10.9.2/lib/postgresql-42.7.10.jar /usr/share/confluent-hub-components
+
+ENV CONNECT_PLUGIN_PATH=/usr/share/confluent-hub-components

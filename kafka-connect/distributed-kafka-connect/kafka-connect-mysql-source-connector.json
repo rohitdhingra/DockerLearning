@@ -1,0 +1,14 @@
+{
+  "name": "mysql_source_user_profiles",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "connection.url": "jdbc:mysql://host.docker.internal:3306/users",
+    "connection.user": "root",
+    "connection.password": "root",
+    "table.whitelist": "users.user_profiles",
+    "mode": "timestamp+incrementing",
+    "timestamp.column.name": "last_updated",
+    "incrementing.column.name": "id",
+    "topic.prefix": "users_"
+  }
+}

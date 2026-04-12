@@ -1,0 +1,1 @@
+docker push rdhingra86/kafka-connect-with-plugins
