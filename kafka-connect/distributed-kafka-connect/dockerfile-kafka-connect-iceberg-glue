@@ -1,0 +1,16 @@
+# Example: Adding Iceberg Glue Support
+FROM confluentinc/cp-kafka-connect:latest
+# 1. Install base connector
+RUN confluent-hub install --no-prompt iceberg/iceberg-kafka-connect:1.9.2
+# Define versions
+ARG ICEBERG_VERSION=1.9.2
+ARG AWS_SDK_VERSION=2.29.52
+
+# Download only the necessary bundles
+ADD --chmod=644 https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/${ICEBERG_VERSION}/iceberg-aws-bundle-${ICEBERG_VERSION}.jar /usr/share/java/kafka-connect-iceberg/
+ADD --chmod=644 https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-kafka-connect/${ICEBERG_VERSION}/iceberg-kafka-connect-${ICEBERG_VERSION}.jar /usr/share/java/kafka-connect-iceberg/
+
+ENV AWS_REGION=ap-south-1
+# Add the key
+ENV AWS_ACCESS_KEY_ID=AKIA2HPNQA2MTXLCZ6TJ
+ENV AWS_SECRET_ACCESS_KEY=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

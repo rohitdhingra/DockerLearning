@@ -1,0 +1,30 @@
+{
+  "name": "iceberg-sink-connector-glue",
+  "config": {
+    "connector.class": "org.apache.iceberg.connect.IcebergSinkConnector",
+    "tasks.max": "1",
+
+    "topics": "test_topic",
+    "iceberg.tables": "default.test_table",
+
+    "iceberg.catalog.type": "glue",
+    "iceberg.catalog.warehouse": "s3://athena-s3-rd-bucket/warehouse",
+    "iceberg.catalog.io-impl": "org.apache.iceberg.aws.s3.S3FileIO",
+
+    "iceberg.catalog.glue.id": "703262099097",
+    "iceberg.catalog.s3.region": "ap-south-1",
+
+    "iceberg.table.auto-create": "true",
+    "iceberg.table.dynamic-schema-evolution": "true",
+
+    "iceberg.tables.default.file-format": "parquet",
+    "iceberg.tables.default.partition-by": "[\"id\"]",
+
+    "iceberg.control.topic": "iceberg-control-events",
+    "iceberg.control.group.id": "iceberg-control-group",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "true"
+  }
+}
