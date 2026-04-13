@@ -1,0 +1,1 @@
+docker build --no-cache -f dockerfile-kafka-connect-iceberg -t kafka-connect-iceberg:1.0.0 .
