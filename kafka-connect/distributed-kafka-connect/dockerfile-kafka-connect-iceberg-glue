@@ -12,5 +12,5 @@ ADD --chmod=644 https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-kafka-
 
 ENV AWS_REGION=ap-south-1
 # Add the key
-ENV AWS_ACCESS_KEY_ID=AKIA2HPNQA2MTXLCZ6TJ
-ENV AWS_SECRET_ACCESS_KEY=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
+ENV AWS_ACCESS_KEY_ID=
+ENV AWS_SECRET_ACCESS_KEY=
